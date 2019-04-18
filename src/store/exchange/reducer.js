@@ -9,6 +9,8 @@ const initialState = {
   fromValue: '100',
   toValue: '1',
   exchangeRate: 0.012,
+  firstCountryName: { title: '', id: '' },
+  secondCountryName: { title: '', id: '' },
 }
 
 export const reducer = createReducer(
@@ -32,7 +34,15 @@ export const reducer = createReducer(
     [actions.changeToTime]: (state, payload) => ({
       ...state,
       toTime: payload,
-    })
+    }),
+    [actions.changeFirstCountry]: (state, payload) => ({
+      ...state,
+      firstCountryName: payload,
+    }),
+    [actions.changeSecondCountry]: (state, payload) => ({
+      ...state,
+      secondCountryName: payload,
+    }),
   },
   initialState,
 )

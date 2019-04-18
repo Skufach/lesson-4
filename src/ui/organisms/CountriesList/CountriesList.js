@@ -15,19 +15,21 @@ export const CountriesList = ({ list, selectCountry, title }) =>
       <TitleContainer>
         <Caption2>{title}</Caption2>
       </TitleContainer>
-      {list.map(({ title, id }) => (
-        <Country key={id} title={title} id={id} onPress={selectCountry} />
-      ))}
+      {list.map(({ name, alpha2Code }) => {
+        return (
+          <Country
+            key={alpha2Code}
+            title={name}
+            id={alpha2Code}
+            onPress={selectCountry}
+          />
+        )
+      })}
     </>
   ) : null
 
 CountriesList.propTypes = {
   title: PropTypes.string.isRequired,
-  list: PropTypes.arrayOf(
-    PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  list: PropTypes.array.isRequired,
   selectCountry: PropTypes.func.isRequired,
 }

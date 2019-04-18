@@ -26,57 +26,67 @@ export const Exchange = ({
   changeTerms,
   changeValuesTrigger,
   push,
-}) => (
-  <PageTemplate>
-    <Header icon="back" />
-    <Flex1>
+  firstCountryName,
+  secondCountryName,
+}) => {
+  return (
+    <PageTemplate>
+      <Header icon="back" />
+      <Flex1>
+        <Wrapper>
+          <SelectField
+            label="Страна 1"
+            value={firstCountryName.title}
+            onPress={() => {
+              push(`${routes.SELECT}/first`)
+            }}
+          />
+          <SelectField
+            label="Страна 2"
+            value={secondCountryName.title}
+            onPress={() => push(`${routes.SELECT}/second`)}
+          />
+          <Divider />
+          <HBox />
+          <TextField
+            label="Российский рубль (RUB)"
+            onChange={value =>
+              changeValuesTrigger({ value, convertDirection: 'from' })
+            }
+            tip="Текст подсказки к полю"
+            value={fromValue}
+            endAdornment="₽"
+          />
+          <HBox />
+          <TextField
+            label="Фунт стерлингов (GBP)"
+            onChange={value =>
+              changeValuesTrigger({ value, convertDirection: 'to' })
+            }
+            value={toValue}
+            tip="Текст подсказки к полю"
+            endAdornment="£"
+          />
+          <HBox />
+          <DeliveryTime
+            fromValue={fromTime}
+            toValue={toTime}
+            fromAction={() => push(`${routes.TIME_FROM}`)}
+            toAction={() => push(`${routes.TIME_TO}`)}
+            tip="Выберите время доставки"
+          />
+          <HBox />
+          <CheckboxWithText value={terms} onPress={changeTerms}>
+            Со всеми условиями согласен, возможно вторая строка
+          </CheckboxWithText>
+        </Wrapper>
+      </Flex1>
       <Wrapper>
-        <SelectField
-          label="Страна 1"
-          value="Россия"
-          onPress={() => push(`${routes.SELECT}`)}
-        />
-        <SelectField
-          label="Страна 2"
-          value="Англия"
-          onPress={() => push(`${routes.SELECT}`)}
-        />
-        <Divider />
-        <HBox />
-        <TextField
-          label="Российский рубль (RUB)"
-          onChange={value => changeValuesTrigger({ value, convertDirection: 'from' })}
-          tip="Текст подсказки к полю"
-          value={fromValue}
-          endAdornment="₽"
-        />
-        <HBox />
-        <TextField
-          label="Фунт стерлингов (GBP)"
-          onChange={value => changeValuesTrigger({ value, convertDirection: 'to' })}
-          value={toValue}
-          tip="Текст подсказки к полю"
-          endAdornment="£"
-        />
-        <HBox />
-        <DeliveryTime
-          fromValue={fromTime}
-          toValue={toTime}
-          fromAction={() => push(`${routes.TIME_FROM}`)}
-          toAction={() => push(`${routes.TIME_TO}`)}
-          tip="Выберите время доставки"
-        />
-        <HBox />
-        <CheckboxWithText value={terms} onPress={changeTerms}>
-          Со всеми условиями согласен, возможно вторая строка
-        </CheckboxWithText>
+        <ButtonAccent onPress={() => undefined}>Отправить</ButtonAccent>
       </Wrapper>
-    </Flex1>
-    <Wrapper>
-      <ButtonAccent onPress={() => undefined}>Отправить</ButtonAccent>
-    </Wrapper>
-  </PageTemplate>
-)
+    </PageTemplate>
+  )
+}
 
 Exchange.propTypes = {
   terms: PropTypes.bool.isRequired,
@@ -87,4 +97,6 @@ Exchange.propTypes = {
   changeTerms: PropTypes.func.isRequired,
   changeValuesTrigger: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
+  firstCountryName: PropTypes.object,
+  secondCountryName: PropTypes.object,
 }

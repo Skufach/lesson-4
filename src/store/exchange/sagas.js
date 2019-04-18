@@ -1,5 +1,5 @@
-import { takeEvery, select, put } from 'redux-saga/effects'
-
+import { takeEvery, select, put, all } from 'redux-saga/effects'
+import { push } from 'connected-react-router'
 import * as actions from './actions'
 import { getExchangeRate } from './selectors'
 
@@ -24,6 +24,15 @@ function* worker(action) {
 
     yield put(actions.changeFromValue(fromValue))
     yield put(actions.changeToValue(toValue))
+  }
+
+  console.log(action.type)
+  if (action.type === actions.changeFirstCountry.toString()) {
+    yield all([put(push('/exchange/select'))])
+  }
+
+  if (action.type == actions.changeSecondCountry.toString()) {
+    yield all([put(push('/exchange/select'))])
   }
 }
 

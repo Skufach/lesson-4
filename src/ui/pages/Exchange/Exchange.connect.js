@@ -7,6 +7,8 @@ import {
   getToTime,
   getFromValue,
   getToValue,
+  getFirstCountry,
+  getSecondCountry,
 } from '@store/exchange/selectors'
 import { changeTerms, changeValuesTrigger } from '@store/exchange/actions'
 import { Exchange } from './Exchange'
@@ -17,9 +19,15 @@ const mapStateToProps = state => ({
   toTime: getToTime(state),
   fromValue: getFromValue(state),
   toValue: getToValue(state),
+  firstCountryName: getFirstCountry(state),
+  secondCountryName: getSecondCountry(state),
 })
 
 export const ExchangeContainer = connect(
   mapStateToProps,
-  { changeTerms, changeValuesTrigger, push },
+  {
+    changeTerms,
+    changeValuesTrigger,
+    push,
+  },
 )(Exchange)
